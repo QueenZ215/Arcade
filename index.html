@@ -13,7 +13,7 @@
     <button onclick="guessingGame();">Guessing Game</button>
     <button onclick="consultOrcle();">Consult the Orcale</button>
     <button onclick="bnh();">Bear, Ninja, Hunter</button>
-
+<!-- Guessing game -->
     <div id="GuessingGame" hidden>
         <hr>
         <!-- containts all the html for playing guessing game -->
@@ -35,7 +35,7 @@
          </div>
          <section id="ggresults" aria-live="polite" hidden>
       <p class="line"><strong id="ggLine"></strong></p>
-      <p class="line win" id="winnerLine"></p>
+      <p class="line win" id="ggwinnerLine"></p>
     </section>
     <hr class="bar" id="ggAgainBreak" hidden>
     
@@ -45,124 +45,55 @@
     </div>
     
     <hr class="bar" id="ggagainBreak2" hidden>
+<!-- End Guessing game -->
 
 
 
     </div>
-    </main>
-    <script>
-        
-        //ggGame listeners
-        // uses for each and arrow functions to set an event listener for each button in number-buttons equal to the data-value
-        
-// Guessing game shared variables
-let ggWin = false, ggGuess = 0, ggTarget = null, cNum;
-
-const GgGuessEl = document.getElementById("ggGuess");
-const GuessingGameEl = document.getElementById("GuessingGame");
-const GgNumButtonsWrapEl = document.getElementById("ggnumberButtons");
-const GgCounterWrapEl = document.getElementById("ggcounter");
-const GgGuessCountEl = document.getElementById("ggGuess");
-const GgResultsEl = document.getElementById("ggresults");
-const GgLineEl = document.getElementById("ggLine");
-const GgWinnerLineEl = document.getElementById("winnerLine");
-const GgAgainBreakEl = document.getElementById("ggAgainBreak");
-const GgAgainBreak2El = document.getElementById("ggagainBreak2");
-const GgEndSessionEl = document.getElementById("ggendSession");
-const GgAgainAreaEl = document.getElementById("ggagainArea");
-const GgPlayAgainEl = document.getElementById("ggplayAgain");
-
-function guessingGame() {  
+    <div id="BNH" hidden>
+        <h2>Bear Ninja Hunter</h2>
+    <p class="tagline">Play against the computer!</p>
+    <div class="rules">
+      <ul>
+        <li>The Bear Beats the Ninja.</li>
+        <li>The Hunter beats the Bear.</li>
+        <li>And the Ninja beats the Hunter.</li>
+      </ul>
+    </div>
+    <p class="choose">Click a button below to select your choice.</p>
     
-    ggWin = false;
-    cNum = ggrandom();
-    GgLineEl.textContent = "";
-    GgWinnerLineEl.textContent = "";
-    // show game ui
-    ggshowRoundUI();
-    console.log("gg button pushed returned from show ui");
-    // pick number / start listiner
-    document.querySelectorAll("#ggnumberButtons button").forEach(btn => {
-            btn.onclick = () => {
-                pChoice = parseInt(btn.dataset.value, 10);
-                ggcheckGuess(pChoice);
-            };
-        });
-
-    //end session button
-    GgEndSessionEl.onclick = () => {
-        ggGuess = 0 ;
-        ggupdateCounter(ggGuess);
-        gginitialView();
-    };
-    GgPlayAgainEl.onclick = () => {
-        ggGuess = 0 ;
-        ggupdateCounter(ggGuess);
-        guessingGame();
-    };
-    }
-function ggcheckGuess(pChoice) {
-    ggGuess ++;
-    // subtract the computers number from the users choice could have done this in the ternary but this felt shorter and more readable
-    let compare = pChoice - cNum;
-    //if compare is less then zero message is low greater then zero high if its nither its assumed its zero and message is set to false
-    let message = (compare < 0)?"low":(compare > 0) ? "high": false;
-    // if message is false player guessed right
-    if (!message) {
-        ggwin = true;
-        GgLineEl.textContent = `Your guess of ${pChoice} is right.`;
-        GgWinnerLineEl.textContent = `You guessed it in ${ggGuess} guesses!`;
-    }else {
-        GgLineEl.textContent = `Your guess was too ${message}, guess again.`;
-        GgWinnerLineEl.textContent = "";
-    }
-    ggupdateCounter(ggGuess);
-}
-function ggrandom() {
-    cNum = Math.floor(Math.random()*10) +1;
-    return cNum
-}
-function ggupdateCounter(ggGuess) {
-    GgGuessEl.textContent = ggGuess.toString();
-}
-function gginitialView() {
-    gghideRoundUI();
-}
-function gghideRoundUI() {
-    GgGuessEl.hidden = true;
-    GuessingGameEl.hidden = true;
-    GgNumButtonsWrapEl.hidden = true;
-    GgCounterWrapEl.hidden = true;
-    GgGuessCountEl.hidden = true;
-    GgResultsEl.hidden = true;
-    GgLineEl.hidden = true;
-    GgWinnerLineEl.hidden = true;
-    GgAgainBreakEl.hidden = true;
-    GgAgainBreak2El.hidden = true;
-    GgAgainAreaEl.hidden = true;
-}
-function ggshowRoundUI() {
-    GgGuessEl.hidden = false;
-    GuessingGameEl.hidden = false;
-    GgNumButtonsWrapEl.hidden = false;
-    GgCounterWrapEl.hidden = false;
-    GgGuessCountEl.hidden = false;
-    GgResultsEl.hidden = false;
-    GgLineEl.hidden = false;
-    GgWinnerLineEl.hidden = false;
-    GgAgainBreakEl.hidden = false;
-    GgAgainBreak2El.hidden = false;
-    GgAgainAreaEl.hidden = false;
-}
-
-
-function consultOrcle() {
-    prompt('The Oracle awaits your question..');
-}
-
-function bnh() {
-    let playerName = prompt('Enter your name to play Bear, Ninjam Hunter:');
-}
-    </script>
+    <hr class="bar">
+     
+    <div class="btn-row" role="group" aria-label="Choices">
+      <button class="choice" data-pick="Bear">Bear</button>
+      <button class="choice" data-pick="Ninja">Ninja</button>
+      <button class="choice" data-pick="Hunter">Hunter</button>
+    </div>
+    
+    <hr class="bar">
+    
+    <section id="results" aria-live="polite" hidden>
+      <p class="line"><strong id="youLine"></strong></p>
+      <p class="line"><strong id="cpuLine"></strong></p>
+      <p class="line win" id="winnerLine"></p>
+    </section>
+    
+    <div id="counters" class="counters" hidden>
+      <p>Your Wins: <span id="pwins">0</span></p>
+      <p>Computer Wins: <span id="cwins">0</span></p>
+    </div>
+    
+    <hr class="bar" id="againBreak" hidden>
+    
+    <div class="again" id="againArea" hidden>
+      <button id="playAgain">Play Again?</button>
+      <button id="endSession" class="linky" title="Clears totals">End Round</button>
+      <button id="endGame" class="linky" title="Clears totals">End Game</button>
+    </div>
+    
+    <hr class="bar" id="againBreak2" hidden>
+    </div>
+    </main>
+    <script src="js/script.js" defer></script>
 </body>
 </html>

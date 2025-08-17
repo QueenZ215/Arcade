@@ -1,3 +1,21 @@
+// Guessing game shared variables
+let  ggGuess = 0;
+let cNum=0;
+
+const GgGuessEl = document.getElementById("ggGuess");
+const GuessingGameEl = document.getElementById("GuessingGame");
+const GgNumButtonsWrapEl = document.getElementById("ggnumberButtons");
+const GgCounterWrapEl = document.getElementById("ggcounter");
+const GgGuessCountEl = document.getElementById("ggGuess");
+const GgResultsEl = document.getElementById("ggresults");
+const GgLineEl = document.getElementById("ggLine");
+const GgWinnerLineEl = document.getElementById("ggwinnerLine");
+const GgAgainBreakEl = document.getElementById("ggAgainBreak");
+const GgAgainBreak2El = document.getElementById("ggagainBreak2");
+const GgEndSessionEl = document.getElementById("ggendSession");
+const GgAgainAreaEl = document.getElementById("ggagainArea");
+const GgPlayAgainEl = document.getElementById("ggplayAgain");
+// BNH game shared varables
 let pwins = 0 , cwins = 0;
 const gameoptions = ["Bear","Ninja","Hunter"];
 
@@ -13,6 +31,9 @@ const cwinsEl = document.getElementById("cwins");
 const againArea = document.getElementById("againArea");
 const againBreak = document.getElementById("againBreak");
 const againBreak2 = document.getElementById("againBreak2");
+const bhnEl = document.getElementById("BNH");
+
+// BNH code Start
 //Set things right to start
 
 hideRoundUI();
@@ -42,8 +63,19 @@ endSessionBtn.addEventListener("click", function() {
     pwins = 0 , cwins = 0 ;
     updateCounters();
     initialView();
+    bnh();
 
 });
+const endGameBtn = document.getElementById("endGame");
+endGameBtn.addEventListener("click", function() {
+    pwins = 0 , cwins = 0 ;
+    updateCounters();
+    initialView();
+    bhnEl.hidden = true;
+});
+function bnh() {
+    bhnEl.hidden = false;
+}
 function playRound(pchoice) {
     const cchoice = computerPick();
     const winner = decideWinner(pchoice, cchoice);
@@ -114,3 +146,100 @@ function showRoundUI() {
     againBreak2.hidden = false;
 
 }
+// BNH Code end 
+
+// Guessing Game code start
+
+        
+        //ggGame listeners
+        // uses for each and arrow functions to set an event listener for each button in number-buttons equal to the data-value
+        
+
+
+function guessingGame() {  
+    cNum = ggrandom();
+    GgLineEl.textContent = "";
+    GgWinnerLineEl.textContent = "";
+    // show game ui
+    ggshowRoundUI();
+    console.log("gg button pushed returned from show ui");
+    // pick number / start listiner
+    document.querySelectorAll("#ggnumberButtons button").forEach(btn => {
+            btn.onclick = () => {
+                pChoice = parseInt(btn.dataset.value, 10);
+                ggcheckGuess(pChoice);
+            };
+        });
+
+    //end session button
+    GgEndSessionEl.onclick = () => {
+        ggGuess = 0 ;
+        ggupdateCounter(ggGuess);
+        gginitialView();
+    };
+    GgPlayAgainEl.onclick = () => {
+        ggGuess = 0 ;
+        ggupdateCounter(ggGuess);
+        guessingGame();
+    };
+    }
+function ggcheckGuess(pChoice) {
+    ggGuess ++;
+    // subtract the computers number from the users choice could have done this in the ternary but this felt shorter and more readable
+    let compare = pChoice - cNum;
+    //if compare is less then zero message is low greater then zero high if its nither its assumed its zero and message is set to false
+    let message = (compare < 0)?"low":(compare > 0) ? "high": false;
+    // if message is false player guessed right
+    if (!message) {
+        GgLineEl.textContent = `Your guess of ${pChoice} is right.`;
+        GgWinnerLineEl.textContent = `You guessed it in ${ggGuess} guesses!`;
+    }else {
+        GgLineEl.textContent = `Your guess was too ${message}, guess again.`;
+        GgWinnerLineEl.textContent = "";
+    }
+    ggupdateCounter(ggGuess);
+}
+function ggrandom() {
+    cNum = Math.floor(Math.random()*10) +1;
+    return cNum
+}
+function ggupdateCounter(ggGuess) {
+    GgGuessEl.textContent = ggGuess.toString();
+}
+function gginitialView() {
+    gghideRoundUI();
+}
+function gghideRoundUI() {
+    GgGuessEl.hidden = true;
+    GuessingGameEl.hidden = true;
+    GgNumButtonsWrapEl.hidden = true;
+    GgCounterWrapEl.hidden = true;
+    GgGuessCountEl.hidden = true;
+    GgResultsEl.hidden = true;
+    GgLineEl.hidden = true;
+    GgWinnerLineEl.hidden = true;
+    GgAgainBreakEl.hidden = true;
+    GgAgainBreak2El.hidden = true;
+    GgAgainAreaEl.hidden = true;
+}
+function ggshowRoundUI() {
+    GgGuessEl.hidden = false;
+    GuessingGameEl.hidden = false;
+    GgNumButtonsWrapEl.hidden = false;
+    GgCounterWrapEl.hidden = false;
+    GgGuessCountEl.hidden = false;
+    GgResultsEl.hidden = false;
+    GgLineEl.hidden = false;
+    GgWinnerLineEl.hidden = false;
+    GgAgainBreakEl.hidden = false;
+    GgAgainBreak2El.hidden = false;
+    GgAgainAreaEl.hidden = false;
+}
+
+
+function consultOrcle() {
+    prompt('The Oracle awaits your question..');
+}
+
+
+// GG code end
