@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Zoe Coolbaugh">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Arcade</title>
+</head>
+<body>
+    <main class="wrap">
+    <h1>What would you like to do?</h1>
+    <button onclick="guessingGame();">Guessing Game</button>
+    <button onclick="consultOrcle();">Consult the Orcale</button>
+    <button onclick="bnh();">Bear, Ninja, Hunter</button>
+
+    <div id="GuessingGame" hidden>
+        <hr>
+        <!-- containts all the html for playing guessing game -->
+         <div id="ggnumberButtons">
+            <button data-value="1">1</button>
+            <button data-value="2">2</button>
+            <button data-value="3">3</button>
+            <button data-value="4">4</button>
+            <button data-value="5">5</button>
+            <button data-value="6">6</button>
+            <button data-value="7">7</button>
+            <button data-value="8">8</button>
+            <button data-value="9">9</button>
+            <button data-value="10">10</button>
+         </div>
+         <hr>
+         <div id="ggcounter" class="counters" hidden>
+            <p>Guesses: <span id="ggGuess">0</span></p>
+         </div>
+         <section id="ggresults" aria-live="polite" hidden>
+      <p class="line"><strong id="ggLine"></strong></p>
+      <p class="line win" id="winnerLine"></p>
+    </section>
+    <hr class="bar" id="ggAgainBreak" hidden>
+    
+    <div class="again" id="ggagainArea" hidden>
+      <button id="ggplayAgain" class="linky" title="Clears totals">Play Guessing Game Again?</button>  
+      <button id="ggendSession" class="linky" title="Clears totals">End Guessing Game session</button>
+    </div>
+    
+    <hr class="bar" id="ggagainBreak2" hidden>
+
+
+
+    </div>
+    </main>
+    <script>
+        
+        //ggGame listeners
+        // uses for each and arrow functions to set an event listener for each button in number-buttons equal to the data-value
+        
+// Guessing game shared variables
+let ggWin = false, ggGuess = 0, ggTarget = null, cNum;
+
+const GgGuessEl = document.getElementById("ggGuess");
+const GuessingGameEl = document.getElementById("GuessingGame");
+const GgNumButtonsWrapEl = document.getElementById("ggnumberButtons");
+const GgCounterWrapEl = document.getElementById("ggcounter");
+const GgGuessCountEl = document.getElementById("ggGuess");
+const GgResultsEl = document.getElementById("ggresults");
+const GgLineEl = document.getElementById("ggLine");
+const GgWinnerLineEl = document.getElementById("winnerLine");
+const GgAgainBreakEl = document.getElementById("ggAgainBreak");
+const GgAgainBreak2El = document.getElementById("ggagainBreak2");
+const GgEndSessionEl = document.getElementById("ggendSession");
+const GgAgainAreaEl = document.getElementById("ggagainArea");
+const GgPlayAgainEl = document.getElementById("ggplayAgain");
+
+function guessingGame() {  
+    
+    ggWin = false;
+    cNum = ggrandom();
+    GgLineEl.textContent = "";
+    GgWinnerLineEl.textContent = "";
+    // show game ui
+    ggshowRoundUI();
+    console.log("gg button pushed returned from show ui");
+    // pick number / start listiner
+    document.querySelectorAll("#ggnumberButtons button").forEach(btn => {
+            btn.onclick = () => {
+                pChoice = parseInt(btn.dataset.value, 10);
+                ggcheckGuess(pChoice);
+            };
+        });
+
+    //end session button
+    GgEndSessionEl.onclick = () => {
+        ggGuess = 0 ;
+        ggupdateCounter(ggGuess);
+        gginitialView();
+    };
+    GgPlayAgainEl.onclick = () => {
+        ggGuess = 0 ;
+        ggupdateCounter(ggGuess);
+        guessingGame();
+    };
+    }
+function ggcheckGuess(pChoice) {
+    ggGuess ++;
+    // subtract the computers number from the users choice could have done this in the ternary but this felt shorter and more readable
+    let compare = pChoice - cNum;
+    //if compare is less then zero message is low greater then zero high if its nither its assumed its zero and message is set to false
+    let message = (compare < 0)?"low":(compare > 0) ? "high": false;
+    // if message is false player guessed right
+    if (!message) {
+        ggwin = true;
+        GgLineEl.textContent = `Your guess of ${pChoice} is right.`;
+        GgWinnerLineEl.textContent = `You guessed it in ${ggGuess} guesses!`;
+    }else {
+        GgLineEl.textContent = `Your guess was too ${message}, guess again.`;
+        GgWinnerLineEl.textContent = "";
+    }
+    ggupdateCounter(ggGuess);
+}
+function ggrandom() {
+    cNum = Math.floor(Math.random()*10) +1;
+    return cNum
+}
+function ggupdateCounter(ggGuess) {
+    GgGuessEl.textContent = ggGuess.toString();
+}
+function gginitialView() {
+    gghideRoundUI();
+}
+function gghideRoundUI() {
+    GgGuessEl.hidden = true;
+    GuessingGameEl.hidden = true;
+    GgNumButtonsWrapEl.hidden = true;
+    GgCounterWrapEl.hidden = true;
+    GgGuessCountEl.hidden = true;
+    GgResultsEl.hidden = true;
+    GgLineEl.hidden = true;
+    GgWinnerLineEl.hidden = true;
+    GgAgainBreakEl.hidden = true;
+    GgAgainBreak2El.hidden = true;
+    GgAgainAreaEl.hidden = true;
+}
+function ggshowRoundUI() {
+    GgGuessEl.hidden = false;
+    GuessingGameEl.hidden = false;
+    GgNumButtonsWrapEl.hidden = false;
+    GgCounterWrapEl.hidden = false;
+    GgGuessCountEl.hidden = false;
+    GgResultsEl.hidden = false;
+    GgLineEl.hidden = false;
+    GgWinnerLineEl.hidden = false;
+    GgAgainBreakEl.hidden = false;
+    GgAgainBreak2El.hidden = false;
+    GgAgainAreaEl.hidden = false;
+}
+
+
+function consultOrcle() {
+    prompt('The Oracle awaits your question..');
+}
+
+function bnh() {
+    let playerName = prompt('Enter your name to play Bear, Ninjam Hunter:');
+}
+    </script>
+</body>
+</html>

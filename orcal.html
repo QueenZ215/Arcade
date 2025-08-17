@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="author" content="Zo&#235; Coolbaugh">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic 8 Ball</title>
+</head>
+<body>
+    <script>
+        //variables
+        let uquestion, fourtne, choice;
+        let taro = ["The future is unclear.",
+                    "The Answer is 42.", 
+                    "This is the way.", 
+                    "You already know the answer.", 
+                    "Ask again later.",
+                    "Definitely not.",
+                    "The stars say maybe.",
+                    "Yes, absolutely."]
+        //ask user input
+        alert("Click OK to seek answers to your questions.")
+
+        do {
+            uquestion = prompt("Welcome to the Magic 8 Ball\nAsk your question and you may uncover some secrets.")
+            if (uquestion === null || question.trim() === ""){
+                alert("You must ask something...");
+                continue;
+            }
+            fourtne = taro[Math.floor(Math.random() * taro.length)];
+            alert(`The answer to your question\n${uquestion}\nis...\n${fourtne}`);
+            choice = confirm("would you like to have anoter qustion answered?");
+        }while(choice)
+        alert("Untill next time!")
+        //random responce from array
+        //repeat
+    </script>
+</body>
+</html>
