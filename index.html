@@ -16,6 +16,7 @@
 <!-- Guessing game -->
     <div id="GuessingGame" hidden>
         <hr>
+        <h2>Guessing Game</h2>
         <!-- containts all the html for playing guessing game -->
          <div id="ggnumberButtons">
             <button data-value="1">1</button>
@@ -38,18 +39,14 @@
       <p class="line win" id="ggwinnerLine"></p>
     </section>
     <hr class="bar" id="ggAgainBreak" hidden>
-    
     <div class="again" id="ggagainArea" hidden>
       <button id="ggplayAgain" class="linky" title="Clears totals">Play Guessing Game Again?</button>  
       <button id="ggendSession" class="linky" title="Clears totals">End Guessing Game session</button>
     </div>
-    
     <hr class="bar" id="ggagainBreak2" hidden>
-<!-- End Guessing game -->
-
-
-
     </div>
+<!-- Guessing game End-->
+<!-- Bear Ninja Hunter -->
     <div id="BNH" hidden>
         <h2>Bear Ninja Hunter</h2>
     <p class="tagline">Play against the computer!</p>
@@ -93,7 +90,42 @@
     
     <hr class="bar" id="againBreak2" hidden>
     </div>
+<!-- Bear Ninja Hunter END -->
+    <div id="Orcale" hidden>
+        <h2>Consult The Orcale</h2>
+        <form id="oracleGame" hidden onsubmit="return false;">
+        <p class="tagline">The Oracle awaits your question..</p>
+        <input type="text" id="oracleInput" placeholder="Ask your question">
+        <button type="submit">Consult Oracle</button>
+        </form>
+        <p id="oracleAnswer"></p>
+    </div>    
     </main>
     <script src="js/script.js" defer></script>
+    <script>
+        // Orcale Variables
+        let fourtne;
+        let taro = ["The future is unclear.", "The Answer is 42.", "This is the way.", "You already know the answer.", "Ask again later.","Definitely not.","The stars say maybe.","Yes, absolutely."]
+        // Listen for user question
+        document.getElementById("oracleGame").addEventListener("submit", () => {
+            const question = document.getElementById("orcaleInput").value;
+            if (question === null || question.trim() === ""){
+                alert("You must ask something...");
+            }
+            getAnswer(question);
+        });
+        function consultOrcle() {
+            
+            prompt('The Oracle awaits your question..');
+        }
+        function getAnswer() {
+            fourtne = taro[Math.floor(Math.random() * taro.length)];
+
+        }
+
+        
+
+
+    </script>
 </body>
 </html>

@@ -237,9 +237,9 @@ function ggshowRoundUI() {
 }
 
 
-function consultOrcle() {
-    prompt('The Oracle awaits your question..');
-}
+// function consultOrcle() {
+//     prompt('The Oracle awaits your question..');
+// }
 
 
 // GG code end
