@@ -115,3 +115,21 @@ button:hover {
   color: #333;
   font-size: 0.9rem;
 }
+
+
+#score ul {
+  list-style-type: none;
+  display:flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  width:100%;
+  box-sizing: border-box;
+  text-align: center;
+  align-items: center;
+  margin: 0;
+  padding:0;
+  gap: 1em;
+}
+#score ul li {
+  display: block;
+}

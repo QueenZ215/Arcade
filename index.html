@@ -9,9 +9,10 @@
 </head>
 <body>
     <main class="wrap">
+      <div id="score"><ul><li id="ggscore">Guessing game: 0</li><li id="orcalescore">Consult the Oracle:0</li><li id="bnhscore">Bear Ninja Hunter:0</li></ul></div>
     <h1>What would you like to do?</h1>
     <button onclick="guessingGame();">Guessing Game</button>
-    <button onclick="consultOrcle();">Consult the Orcale</button>
+    <button onclick="consultOracle();">Consult the Oracle</button>
     <button onclick="bnh();">Bear, Ninja, Hunter</button>
 <!-- Guessing game -->
     <div id="GuessingGame" hidden>
@@ -91,41 +92,27 @@
     <hr class="bar" id="againBreak2" hidden>
     </div>
 <!-- Bear Ninja Hunter END -->
-    <div id="Orcale" hidden>
-        <h2>Consult The Orcale</h2>
+<!-- Consult the Oracle  -->
+    <div id="oracle" hidden>
+        <h2>Consult The Oracle</h2>
         <form id="oracleGame" hidden onsubmit="return false;">
-        <p class="tagline">The Oracle awaits your question..</p>
+        <p id="cotagline">The Oracle awaits your question..</p>
         <input type="text" id="oracleInput" placeholder="Ask your question">
         <button type="submit">Consult Oracle</button>
         </form>
-        <p id="oracleAnswer"></p>
+        <div id="oracleAnswer"></div>
+    </div>
+    <div id="oracleAgain" hidden>
+      <hr class="bar">
+    <div class="coagain">
+      <button id="coplayAgain" class="linky" title="Clears totals">Ask The Oracle Again?</button>  
+      <button id="coendSession" class="linky" title="Clears totals">End Oracle session</button>
+    </div>
+    <hr class="bar">
     </div>    
     </main>
     <script src="js/script.js" defer></script>
-    <script>
-        // Orcale Variables
-        let fourtne;
-        let taro = ["The future is unclear.", "The Answer is 42.", "This is the way.", "You already know the answer.", "Ask again later.","Definitely not.","The stars say maybe.","Yes, absolutely."]
-        // Listen for user question
-        document.getElementById("oracleGame").addEventListener("submit", () => {
-            const question = document.getElementById("orcaleInput").value;
-            if (question === null || question.trim() === ""){
-                alert("You must ask something...");
-            }
-            getAnswer(question);
-        });
-        function consultOrcle() {
-            
-            prompt('The Oracle awaits your question..');
-        }
-        function getAnswer() {
-            fourtne = taro[Math.floor(Math.random() * taro.length)];
-
-        }
-
-        
-
-
-    </script>
+<!-- Consult the Oracle END -->
+    
 </body>
 </html>

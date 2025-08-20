@@ -1,6 +1,7 @@
 // Guessing game shared variables
 let  ggGuess = 0;
 let cNum=0;
+let ggwins = 0;
 
 const GgGuessEl = document.getElementById("ggGuess");
 const GuessingGameEl = document.getElementById("GuessingGame");
@@ -15,6 +16,7 @@ const GgAgainBreak2El = document.getElementById("ggagainBreak2");
 const GgEndSessionEl = document.getElementById("ggendSession");
 const GgAgainAreaEl = document.getElementById("ggagainArea");
 const GgPlayAgainEl = document.getElementById("ggplayAgain");
+const GgscoreEl = document.getElementById("ggscore");
 // BNH game shared varables
 let pwins = 0 , cwins = 0;
 const gameoptions = ["Bear","Ninja","Hunter"];
@@ -32,6 +34,22 @@ const againArea = document.getElementById("againArea");
 const againBreak = document.getElementById("againBreak");
 const againBreak2 = document.getElementById("againBreak2");
 const bhnEl = document.getElementById("BNH");
+const bhnscoreEl = document.getElementById("bnhscore");
+
+// Orcale Variables
+let fourtne;
+let taro = ["The future is unclear.", "The Answer is 42.", "This is the way.", "You already know the answer.", "Ask again later.","Definitely not.","The stars say maybe.","Yes, absolutely."]
+let coLuck = 0; 
+const CoracleEl = document.getElementById("oracle");
+const CogameEl = document.getElementById("oracleGame");
+const CotaglineEl = document.getElementById("cotagline");
+const CoInputEl = document.getElementById("oracleInput");
+const CoAnswerEl = document.getElementById("oracleAnswer");
+const CoPlayAgainEl = document.getElementById("coplayAgain");
+const CoEndSessionEl = document.getElementById("coendSession");
+const CoAgainEl = document.getElementById("oracleAgain");
+const CoscoreEl = document.getElementById("orcalescore");
+
 
 // BNH code Start
 //Set things right to start
@@ -124,6 +142,7 @@ return winner
 function updateCounters() {
     pwinsEl.textContent = pwins.toString();
     cwinsEl.textContent = cwins.toString();
+    bhnscoreEl.textContent = `Bear Ninja Hunter:${pwins.toString()}`;
 
 }
 function initialView(){
@@ -174,6 +193,7 @@ function guessingGame() {
     //end session button
     GgEndSessionEl.onclick = () => {
         ggGuess = 0 ;
+        ggwins = 0;
         ggupdateCounter(ggGuess);
         gginitialView();
     };
@@ -193,6 +213,7 @@ function ggcheckGuess(pChoice) {
     if (!message) {
         GgLineEl.textContent = `Your guess of ${pChoice} is right.`;
         GgWinnerLineEl.textContent = `You guessed it in ${ggGuess} guesses!`;
+        ggwins++;
     }else {
         GgLineEl.textContent = `Your guess was too ${message}, guess again.`;
         GgWinnerLineEl.textContent = "";
@@ -205,6 +226,7 @@ function ggrandom() {
 }
 function ggupdateCounter(ggGuess) {
     GgGuessEl.textContent = ggGuess.toString();
+    GgscoreEl.textContent = `Guessing game: ${ggwins.toString()}`;
 }
 function gginitialView() {
     gghideRoundUI();
@@ -235,11 +257,62 @@ function ggshowRoundUI() {
     GgAgainBreak2El.hidden = false;
     GgAgainAreaEl.hidden = false;
 }
-
-
-// function consultOrcle() {
-//     prompt('The Oracle awaits your question..');
-// }
-
-
 // GG code end
+//  Consult the Oracle Code Start
+function consultOracle() {
+    CoracleEl.hidden = false;
+    CogameEl.hidden = false;
+    CotaglineEl.hidden = false;
+    CoInputEl.hidden = false;
+    CoAnswerEl.hidden = false;
+    CoAgainEl.hidden = true;
+// Listen for user question from fourm
+oracleGame.addEventListener("submit", (e) => {
+    e.preventDefault(); //stops page reload
+    const question = oracleInput.value.trim();
+    if (!question) {
+        alert("You must ask something...");
+        oracleInput.focus();
+        return;
+    }
+    fourtne= getAnswer();
+    oracleDisplay(fourtne, question);
+})
+// end session button
+CoEndSessionEl.onclick = () => {
+    coLuck = 0;
+    coupdateCounter();
+    consultOracleoff();
+};
+CoPlayAgainEl.onclick = () => {
+    consultOracle();
+};
+}
+
+function consultOracleoff() {
+    CoracleEl.hidden =  true;
+    CogameEl.hidden =  true;
+    CotaglineEl.hidden = true;
+    CoInputEl.hidden =  true;
+    CoAnswerEl.hidden = true;
+    CoAgainEl.hidden = true;
+}
+
+function getAnswer() {
+    // around a 50% chance to score a point 
+      let cowin = Math.floor(Math.random() * taro.length)
+      if (!(cowin % 2)){ coLuck++;}
+    fourtne = taro[cowin];
+    return fourtne;
+}
+
+function oracleDisplay(fourtne, question) {
+    const OracleLine =`<p>The answer to your question:<br>${question}<br></p><p>is...<br>${fourtne}</p>`;
+    CoAnswerEl.innerHTML = OracleLine;
+    CoAgainEl.hidden = false;
+    coupdateCounter();
+}
+
+function coupdateCounter() {
+    CoscoreEl.textContent = `Consult the Oracle:${coLuck}`;
+}
