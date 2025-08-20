@@ -1,5 +1,5 @@
 // Guessing game shared variables
-let  ggGuess = 0;
+let ggGuess = 0;
 let cNum=0;
 let ggwins = 0;
 
@@ -38,7 +38,7 @@ const bhnscoreEl = document.getElementById("bnhscore");
 
 // Orcale Variables
 let fourtne;
-let taro = ["The future is unclear.", "The Answer is 42.", "This is the way.", "You already know the answer.", "Ask again later.","Definitely not.","The stars say maybe.","Yes, absolutely."]
+let taro = ["The future is unclear.", "The Answer is 42.", "This is the way.", "You already know the answer.", "Ask again later.","Definitely not.","The stars say maybe.","Yes, absolutely."];
 let coLuck = 0; 
 const CoracleEl = document.getElementById("oracle");
 const CogameEl = document.getElementById("oracleGame");
@@ -78,7 +78,8 @@ playAgainBtn.addEventListener("click", function() {
 });
 const endSessionBtn = document.getElementById("endSession");
 endSessionBtn.addEventListener("click", function() {
-    pwins = 0 , cwins = 0 ;
+    pwins = 0; 
+    cwins = 0 ;
     updateCounters();
     initialView();
     bnh();

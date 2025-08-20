@@ -108,15 +108,12 @@ button:hover {
 #playAgain { 
     font-weight: 600; 
 }
-
 .linky {
   background: transparent;
   border: 1px dashed #bbb;
   color: #333;
   font-size: 0.9rem;
 }
-
-
 #score ul {
   list-style-type: none;
   display:flex;
